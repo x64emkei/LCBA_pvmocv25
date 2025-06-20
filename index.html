@@ -184,7 +184,7 @@
             background: var(--light);
             border-radius: 15px;
             padding: 25px;
-            margin-bottom: 20px;
+            margin-bottom: 0; /* Adjusted for new layouts */
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             height: 100%;
         }
@@ -214,7 +214,6 @@
             padding-left: 20px;
         }
 
-        /* NEW STYLES for Admin list formatting */
         .admin-list dt {
             font-weight: bold;
             color: var(--primary);
@@ -230,12 +229,15 @@
             gap: 20px;
             margin-bottom: 30px;
         }
-        .philosophy-layout {
+        
+        .history-entry, .philosophy-layout {
             display: grid;
             grid-template-columns: 1fr 2fr;
             gap: 30px;
-            align-items: stretch;
+            align-items: center;
+            margin-bottom: 30px;
         }
+
         .image-placeholder-card {
             background: var(--light);
             padding: 15px;
@@ -503,7 +505,7 @@
         }
         
         @media (max-width: 992px) {
-            .philosophy-layout {
+            .philosophy-layout, .history-entry {
                 grid-template-columns: 1fr;
             }
         }
@@ -521,7 +523,7 @@
     <div class="container">
         <header>
             <div class="logo">
-                <img src="lcba_logo.png" alt="LCBA Logo" onerror="this.style.display='none'; this.parentElement.innerHTML = 'LCBA';">
+                <img src="lcba-logo.png" alt="LCBA Logo" onerror="this.style.display='none'; this.parentElement.innerHTML = 'LCBA';">
             </div>
             <h1>Laguna College of Business and Arts</h1>
             <p class="subtitle">Institutional Identity and PVMOC</p>
@@ -548,27 +550,43 @@
                 <h2 class="section-title">History of LCBA</h2>
                 <p>Learn and know the rich history and journey of the Laguna College of Business and Arts, from its humble beginnings to its present status as a cornerstone of education in the region.</p>
                 <br>
-                <div class="image-grid">
-                    <div class="image-placeholder-card">
-                        <img src="llamas_portrait.png" alt="Portrait of Don Pedro Llamas" onerror="this.onerror=null;this.src='https://placehold.co/300x400/cccccc/000000?text=Image+Not+Found';">
-                        <p class="caption">Don Pedro E. Llamas (Portrait)</p>
+                <div class="history-entry">
+                    <div class="image-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 0;">
+                        <div class="image-placeholder-card">
+                            <img src="llamas_portrait.png" alt="Portrait of Don Pedro Llamas" onerror="this.onerror=null;this.src='https://placehold.co/300x400/cccccc/000000?text=Image+Not+Found';">
+                            <p class="caption">Don Pedro E. Llamas (Portrait)</p>
+                        </div>
+                        <div class="image-placeholder-card">
+                            <img src="dpl.png" alt="Statue of Don Pedro Llamas" onerror="this.onerror=null;this.src='https://placehold.co/300x400/cccccc/000000?text=Image+Not+Found';">
+                            <p class="caption">Don Pedro E. Llamas (Half-Bust Statue)</p>
+                        </div>
                     </div>
-                    <div class="image-placeholder-card">
-                        <img src="dpl.png" alt="Statue of Don Pedro Llamas" onerror="this.onerror=null;this.src='https://placehold.co/300x400/cccccc/000000?text=Image+Not+Found';">
-                        <p class="caption">Don Pedro E. Llamas (Half-Bust Statue)</p>
+                    <div class="content-card">
+                        <h3><i class="fas fa-user-tie"></i> The Founder</h3>
+                        <p><strong>Don Pedro E. Llamas (1884–1946)</strong>, a pioneering educator and public servant from Pagsanjan, Laguna, founded the institution. An alumnus of the University of Michigan, he first established Pagsanjan Academy in 1923. Recognizing the need for a secondary school in Calamba, he then founded the <strong>Laguna Institute in 1930</strong>.</p>
                     </div>
                 </div>
-                <div class="content-card">
-                    <h3><i class="fas fa-user-tie"></i> The Founder</h3>
-                    <p><strong>Don Pedro E. Llamas (1884–1946)</strong>, a pioneering educator and public servant from Pagsanjan, Laguna, founded the institution. An alumnus of the University of Michigan, he first established Pagsanjan Academy in 1923. Recognizing the need for a secondary school in Calamba, he then founded the <strong>Laguna Institute in 1930</strong>.</p>
+
+                <div class="history-entry">
+                    <div class="image-placeholder-card">
+                        <img src="LI.png" alt="Laguna Institute Logo" onerror="this.onerror=null;this.src='https://placehold.co/300x300/cccccc/000000?text=LI+Logo';">
+                        <p class="caption">Laguna Institute Logo</p>
+                    </div>
+                    <div class="content-card">
+                        <h3><i class="fas fa-school"></i> The Laguna Institute (L.I.)</h3>
+                        <p>The Laguna Institute formally opened in June 1930 with 95 students. The first campus was a rented two-story building on Burgos Street. By 1933, it was officially recognized by the government. After a pause during World War II, the school reopened and expanded in 1950, adding elementary and college departments.</p>
+                    </div>
                 </div>
-                <div class="content-card">
-                    <h3><i class="fas fa-school"></i> The Laguna Institute (L.I.)</h3>
-                    <p>The Laguna Institute formally opened in June 1930 with 95 students. The first campus was a rented two-story building on Burgos Street. By 1933, it was officially recognized by the government. After a pause during World War II, the school reopened and expanded in 1950, adding elementary and college departments.</p>
-                </div>
-                 <div class="content-card">
-                    <h3><i class="fas fa-award"></i> The Name Change to LCBA</h3>
-                    <p>On its 50th anniversary in 1980, the institution officially adopted the name <strong>Laguna College of Business and Arts (LCBA)</strong> to reflect its expanded role and commitment to higher education in both business and the arts.</p>
+
+                <div class="history-entry">
+                    <div class="image-placeholder-card">
+                        <img src="lcba_logo.png" alt="LCBA Logo" onerror="this.onerror=null;this.src='https://placehold.co/300x300/cccccc/000000?text=LCBA+Logo';">
+                        <p class="caption">LCBA Official Logo</p>
+                    </div>
+                    <div class="content-card">
+                        <h3><i class="fas fa-award"></i> The Name Change to LCBA</h3>
+                        <p>On its 50th anniversary in 1980, the institution officially adopted the name <strong>Laguna College of Business and Arts (LCBA)</strong> to reflect its expanded role and commitment to higher education in both business and the arts.</p>
+                    </div>
                 </div>
             </div>
 
@@ -611,7 +629,7 @@
                     <dl class="admin-list">
                         <dt>LCBA President:</dt> <dd>Jose Ted Llamas Gonzales</dd>
                         <dt>LCBA Chief Operations Officer:</dt> <dd>Geraldine Gonzales</dd>
-                        <dt>LCBA HR and Managment Center Director:</dt> <dd>Atty. Jose Renzo Gonzales</dd>
+                        <dt>LCBA HR and Management Center Director:</dt> <dd>Atty. Jose Renzo Gonzales</dd>
                         <dt>Research Director:</dt> <dd>Ma. Lorena Tagala, LPT, EdD</dd>
                         <dt>Academe Director:</dt> <dd>Alfredo Perez Jr., PhD (CAR)</dd>
                         <dt>Dean of College Studies:</dt> <dd>Melchor Villapando, LPT, EdD</dd>
@@ -709,7 +727,7 @@
                 <h2 class="section-title">Philosophy</h2>
                 <div class="philosophy-layout">
                     <div class="image-placeholder-card">
-                        <img src="rizal.png" alt="Portrait of Dr. Jose Rizal">
+                        <img src="rizal.png" alt="Portrait of Dr. Jose Rizal" onerror="this.onerror=null;this.src='https://placehold.co/300x400/cccccc/000000?text=Image+Not+Found';">
                         <p class="caption">Dr. Jose Rizal</p>
                     </div>
                     <div class="content-card">
