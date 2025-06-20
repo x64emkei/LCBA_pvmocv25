@@ -17,13 +17,13 @@
         :root {
             --primary-blue: #0d47a1; /* Deep, professional blue */
             --secondary-yellow: #ffab00; /* Vibrant, rich yellow */
-            --light-bg: #fdfdfd; /* A slightly off-white for cards */
-            --dark-blue-text: #0a2a4a;
+            --light-bg: #f8f9fa;
+            --dark-blue-bg: #0a2a4a;
             --white: #ffffff;
         }
         
         body {
-            background-color: var(--dark-blue-text);
+            background-color: var(--dark-blue-bg);
             background-image: url('background.png');
             background-size: cover;
             background-position: center;
@@ -37,7 +37,7 @@
         /* Background Overlay for 65% Opacity Effect */
         body::before {
             content: "";
-            position: absolute;
+            position: fixed; /* Changed to fixed */
             top: 0;
             left: 0;
             width: 100%;
@@ -93,7 +93,7 @@
         }
         
         /* Navigation Styles */
-        .main-nav {
+        .desktop-nav {
             display: flex;
             justify-content: center;
             background: rgba(255, 255, 255, 0.1);
@@ -130,8 +130,27 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-        .menu-toggle { display: none; } /* Hidden on desktop */
         
+        /* Mobile Navigation Styles */
+        .menu-toggle { display: none; }
+        .mobile-nav { display: none; }
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
         .tab-content {
             display: none;
             background: white;
@@ -181,7 +200,7 @@
             background: var(--light-bg);
             border-radius: 15px;
             padding: 25px;
-            margin-bottom: 25px;
+            margin-bottom: 25px; 
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             height: 100%;
             border: 1px solid #e0e0e0;
@@ -189,7 +208,7 @@
         .tab-content > *:last-child,
         .history-entry > *:last-child,
         .philosophy-layout > *:last-child {
-            margin-bottom: 0;
+            margin-bottom: 0; 
         }
         
         .content-card h3 {
@@ -220,7 +239,7 @@
             display: grid;
             grid-template-columns: 1fr 2fr;
             gap: 30px;
-            align-items: stretch;
+            align-items: stretch; 
             margin-bottom: 30px;
         }
         .history-entry .content-card,
@@ -255,7 +274,6 @@
             margin-top: auto;
         }
         
-        /* Updated Value Card Styles for Flipping */
         .values-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -304,6 +322,25 @@
         .value-card h4 { color: var(--primary-blue); margin-bottom: 10px; font-size: 1.4rem; }
         .value-card-front p { font-size: 1rem; color: #666; line-height: 1.6; }
         
+        .admin-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+        .admin-card h4 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+         .admin-card h4 i {
+            margin-right: 10px;
+        }
+
         .objective-item {
             display: flex; align-items: flex-start; margin-bottom: 20px;
             padding: 15px; border-radius: 10px;
@@ -393,24 +430,45 @@
         footer a:hover { text-decoration: underline; }
         
         @media (max-width: 1024px) {
-            .main-nav { display: none; }
-            .main-nav.active {
-                display: block; position: absolute;
-                top: 150px; left: 5%; right: 5%;
-                width: 90%; background: var(--dark-blue-text);
-                padding: 20px; border-radius: 20px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-                border: 1px solid rgba(255,255,255,0.2);
-            }
-            .nav-tabs, .nav-group {
-                flex-direction: column;
-                align-items: center; gap: 10px;
-            }
+            .desktop-nav { display: none; }
             .menu-toggle {
-                display: block; background: var(--secondary-yellow); color: var(--dark-blue-text);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: var(--secondary-yellow); color: var(--dark-blue-text);
                 border: none; border-radius: 50%; width: 50px; height: 50px;
                 font-size: 1.5rem; position: fixed; top: 20px; right: 20px;
-                z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+                z-index: 1001; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            }
+            .mobile-nav {
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                z-index: 1000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease, visibility 0s 0.3s;
+            }
+            .mobile-nav.active {
+                opacity: 1;
+                visibility: visible;
+                transition: opacity 0.3s ease;
+            }
+            .mobile-nav .nav-tabs {
+                background: rgba(10, 42, 74, 0.85);
+                backdrop-filter: blur(8px);
+                padding: 30px;
+                border-radius: 20px;
+                width: 90%;
+                max-width: 400px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+                border: 1px solid rgba(255,255,255,0.2);
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
             }
         }
         @media (max-width: 992px) {
@@ -432,7 +490,7 @@
             <p class="subtitle">Institutional Identity and PVMOC</p>
             
             <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></button>
-            <nav class="main-nav" id="main-nav">
+            <nav class="desktop-nav">
                 <div class="nav-tabs">
                     <div class="nav-group">
                         <button class="tab-btn active" data-tab="history">History</button>
@@ -449,6 +507,24 @@
                 </div>
             </nav>
         </header>
+
+        <div class="menu-overlay" id="menu-overlay"></div>
+        <nav class="mobile-nav" id="mobile-nav">
+            <div class="nav-tabs">
+                <div class="nav-group">
+                    <button class="tab-btn active" data-tab="history">History</button>
+                    <button class="tab-btn" data-tab="academics">Academics & Admin</button>
+                </div>
+                <div class="nav-group">
+                    <button class="tab-btn" data-tab="philosophy">Philosophy</button>
+                    <button class="tab-btn" data-tab="vision">Vision</button>
+                    <button class="tab-btn" data-tab="mission">Mission</button>
+                    <button class="tab-btn" data-tab="objectives">Quality Objectives</button>
+                    <button class="tab-btn" data-tab="values">Core Values</button>
+                    <button class="tab-btn" data-tab="quiz">Quiz</button>
+                </div>
+            </div>
+        </nav>
         
         <main>
             <!-- History Tab -->
@@ -543,7 +619,7 @@
                 <div class="content-card">
                     <h3><i class="fas fa-building-user"></i> Administrative Offices</h3>
                      <div class="image-grid">
-                        <div class="value-card" style="text-align: left;">
+                        <div class="admin-card">
                             <h4><i class="fas fa-id-card"></i> Office of the Registrar</h4>
                             <dl class="admin-list">
                                 <dt>School Registrar:</dt> <dd>Lourdes Llamas Oppus</dd>
@@ -553,7 +629,7 @@
                                 <dt>Records Associate:</dt> <dd>Diana Non</dd>
                             </dl>
                         </div>
-                         <div class="value-card" style="text-align: left;">
+                         <div class="admin-card">
                             <h4><i class="fas fa-cash-register"></i> Office of the Cashier</h4>
                              <dl class="admin-list">
                                 <dt>Personnel:</dt> 
@@ -564,7 +640,7 @@
                                 <dd>Margue Belen</dd>
                             </dl>
                         </div>
-                        <div class="value-card" style="text-align: left;">
+                        <div class="admin-card">
                             <h4><i class="fas fa-hands-helping"></i> Guidance and Counseling Center</h4>
                             <dl class="admin-list">
                                 <dt>Head:</dt> <dd>Bernard Christopher Catam, RPm, RPsy, MSP, CHRA, CHMT</dd>
@@ -572,12 +648,11 @@
                                 <dt>Guidance Personnel:</dt> 
                                 <dd>Marites Guanizo</dd>
                                 <dd>Ramil Mesa</dd>
-                                
                                 <dd>Geri Ann Jarilla</dd>
                                 <dd>Erico Cabugayan</dd>
                             </dl>
                         </div>
-                         <div class="value-card" style="text-align: left;">
+                         <div class="admin-card">
                             <h4><i class="fas fa-briefcase-medical"></i> Health Services</h4>
                             <dl class="admin-list">
                                 <dt>School Physician:</dt> <dd>Dra. Charine Basul-Andres</dd>
@@ -588,7 +663,7 @@
                                 <dd>Jeremy Magoliado</dd>
                             </dl>
                         </div>
-                        <div class="value-card" style="text-align: left;">
+                        <div class="admin-card">
                             <h4><i class="fas fa-database"></i> SMIS</h4>
                             <dl class="admin-list">
                                 <dt>SMIS Head:</dt> <dd>Allen Llorca, MIT</dd>
@@ -597,7 +672,7 @@
                                 <dd>Roel Vargas</dd>
                             </dl>
                         </div>
-                         <div class="value-card" style="text-align: left;">
+                         <div class="admin-card">
                             <h4><i class="fas fa-book-open-reader"></i> College Library</h4>
                              <dl class="admin-list">
                                 <dt>Chief Librarian:</dt> <dd>Ronalyn Antalan, RL, MLIS</dd>
@@ -609,14 +684,14 @@
                                 <dt>Library Associate, High School:</dt><dd>[Data to be provided]</dd>
                             </dl>
                         </div>
-                         <div class="value-card" style="text-align: left;">
+                         <div class="admin-card">
                             <h4><i class="fas fa-user-friends"></i> OSAS</h4>
                              <dl class="admin-list">
                                 <dt>Discipline Associate:</dt> <dd>Denmark Serdan</dd>
                                 <dt>Student Activities Coordinator:</dt> <dd>Peter Mark Albaira, RPm, CHRA</dd>
                             </dl>
                         </div>
-                         <div class="value-card" style="text-align: left;">
+                         <div class="admin-card">
                             <h4><i class="fas fa-link"></i> Linkages and Placement Office</h4>
                              <dl class="admin-list">
                                 <dt>Officer:</dt><dd>Miguel Madamba Jr.</dd>
@@ -624,7 +699,6 @@
                         </div>
                      </div>
                 </div>
-
             </div>
 
             <!-- Philosophy Tab -->
@@ -755,7 +829,7 @@
             
             <!-- Quiz Tab -->
             <div id="quiz" class="tab-content">
-                <h2 class="section-title">LCBA Principles Quiz</h2>
+                <h2 class="section-title">LCBA Quiz</h2>
                 <div id="quiz-area">
                     <div id="quiz-start-screen">
                         <p class="subtitle" style="color: #555; text-align: center;">Test your knowledge of LCBA's guiding principles. This quiz has 10 questions. Good luck!</p>
@@ -773,7 +847,7 @@
                         <div class="quiz-controls">
                             <button class="btn" id="prev-btn"><i class="fas fa-arrow-left"></i> Previous</button>
                             <button class="btn" id="next-btn">Next <i class="fas fa-arrow-right"></i></button>
-                            <button class="btn btn-secondary" id="submit-btn" style="display: none;">Submit Quiz</button>
+                            <button class="btn btn-secondary" id="submit-btn" style="display: none;">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -797,11 +871,17 @@
         const tabBtns = document.querySelectorAll('.tab-btn');
         const tabContents = document.querySelectorAll('.tab-content');
         const menuToggle = document.getElementById('menu-toggle');
-        const mainNav = document.getElementById('main-nav');
+        const mobileNav = document.getElementById('mobile-nav');
+        const menuOverlay = document.getElementById('menu-overlay');
 
         // Mobile Menu Toggle
         menuToggle.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+        });
+        menuOverlay.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+            menuOverlay.classList.remove('active');
         });
 
         // Tab Navigation
@@ -810,12 +890,14 @@
                 tabBtns.forEach(btn => btn.classList.remove('active'));
                 tabContents.forEach(tab => tab.classList.remove('active'));
                 
-                button.classList.add('active');
                 const tabId = button.getAttribute('data-tab');
+                // Activate the button in both desktop and mobile navs
+                document.querySelectorAll(`.tab-btn[data-tab="${tabId}"]`).forEach(b => b.classList.add('active'));
                 document.getElementById(tabId).classList.add('active');
                 
-                if (mainNav.classList.contains('active')) {
-                    mainNav.classList.remove('active');
+                if (mobileNav.classList.contains('active')) {
+                    mobileNav.classList.remove('active');
+                    menuOverlay.classList.remove('active');
                 }
 
                 if (tabId === 'values') { initMatchingGame(); }
